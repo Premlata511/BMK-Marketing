@@ -616,24 +616,25 @@
     const payVal  = payment.dataset.val;
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-    // ── Google Sheets submission via Google Forms ──
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdUtAe0dDr-mMj_4nAC803JXmJ7VGXYb1q1NKmRVGa1aShY8Q/formResponse';
+    // ── Google Sheets submission via Apps Script ──
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
 
-    const formData = new FormData();
-    formData.append('entry.1270212584', name);       // Customer Name
-    formData.append('entry.699831578',  phone);      // Phone Number
-    formData.append('entry.1040249611', payVal);     // Payment Method
-    formData.append('entry.778039244',  notes);      // Special Instructions
-    formData.append('entry.1273990810', timestamp);  // Timestamp
-    // NOTE: Add Delivery Address & Products fields to your Google Form,
-    // then add their entry IDs here:
-    // formData.append('entry.XXXXXXXXX', address);  // Delivery Address
-    // formData.append('entry.XXXXXXXXX', items);    // Products Ordered
-
-    // Submit to Google Form (no-cors — response will be opaque, that's fine)
     try {
-      await fetch(GOOGLE_FORM_URL, { method: 'POST', body: formData, mode: 'no-cors' });
-    } catch (_) { /* no-cors fetch always "fails" — that's expected */ }
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:      name,
+          phone:     phone,
+          address:   address,
+          products:  items,
+          payment:   payVal,
+          notes:     notes,
+          timestamp: timestamp
+        })
+      });
+    } catch (_) { /* no-cors is expected */ }
 
     document.getElementById('successOverlay').classList.add('show');
   });
