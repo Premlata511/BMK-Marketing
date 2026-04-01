@@ -620,18 +620,19 @@
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
 
     try {
-      const payload = new FormData();
-      payload.append('name',      name);
-      payload.append('phone',     phone);
-      payload.append('address',   address);
-      payload.append('products',  items);
-      payload.append('payment',   payVal);
-      payload.append('notes',     notes);
-      payload.append('timestamp', timestamp);
+      const params = new URLSearchParams();
+      params.append('name',      name);
+      params.append('phone',     phone);
+      params.append('address',   address);
+      params.append('products',  items);
+      params.append('payment',   payVal);
+      params.append('notes',     notes);
+      params.append('timestamp', timestamp);
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: payload
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
       });
     } catch (_) { /* no-cors is expected */ }
 
