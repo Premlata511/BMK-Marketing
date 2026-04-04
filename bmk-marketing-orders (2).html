@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BMK Marketing – Place an Order</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --cream: #FAF7F0;
+    --dark: #1A1208;
+    --mid: #3D2E0A;
+    --text: #2C1F04;
+    --border: rgba(201,168,76,0.25);
+    --input-bg: rgba(255,255,255,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 90% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+  .strands { position: fixed; top: 0; right: 0; width: 320px; height: 320px; pointer-events: none; z-index: 0; opacity: 0.18; }
+  .page-wrap { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  header { text-align: center; margin-bottom: 3rem; animation: fadeDown 0.8s ease both; }
+  .logo-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 0.75rem;
+    font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1rem;
+  }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 300; color: var(--dark); line-height: 1.1; }
+  h1 span { color: var(--gold); font-weight: 600; }
+  .tagline { margin-top: 0.75rem; font-size: 0.9rem; color: var(--gold-dark); letter-spacing: 0.05em; font-weight: 300; }
+  .divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .divider-icon { color: var(--gold); font-size: 1rem; }
+  .card {
+    background: rgba(255,255,255,0.72); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem;
+    box-shadow: 0 8px 40px rgba(139,105,20,0.08), 0 2px 8px rgba(139,105,20,0.06);
+    animation: fadeUp 0.9s ease 0.2s both;
+  }
+  @media (max-width: 520px) { .card { padding: 1.75rem 1.25rem; } }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600;
+    color: var(--mid); letter-spacing: 0.04em; margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-label .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .form-group { margin-bottom: 1.4rem; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.45rem; }
+  .opt { color: var(--gold-dark); font-size: 0.7rem; font-weight: 300; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+  .req { color: var(--gold); margin-left: 2px; }
+  .phone-wrap { display: flex; }
+  .phone-prefix {
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border); border-right: none;
+    border-radius: 3px 0 0 3px; padding: 0.75rem 0.9rem; font-size: 0.95rem;
+    color: var(--gold-dark); font-weight: 500; white-space: nowrap; display: flex; align-items: center;
+  }
+  .phone-wrap input { border-radius: 0 3px 3px 0 !important; flex: 1; }
+  input[type="text"], input[type="tel"], input[type="number"], input[type="date"],
+  select, textarea {
+    width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 3px;
+    padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+  textarea { resize: vertical; min-height: 80px; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 460px) { .row-2 { grid-template-columns: 1fr; } }
+
+  /* ── Brand tabs ── */
+  .brand-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .brand-tab {
+    padding: 0.45rem 1.1rem; border: 1.5px solid var(--border); border-radius: 2px;
+    cursor: pointer; font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+    font-weight: 500; color: var(--mid); background: rgba(255,255,255,0.5); transition: all 0.2s;
+  }
+  .brand-tab:hover { border-color: var(--gold-light); }
+  .brand-tab.active { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--dark); }
+  .brand-panel { display: none; }
+  .brand-panel.active { display: block; }
+
+  /* ── Size rows ── */
+  .size-headers { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px dashed var(--border); margin-bottom: 0.25rem; }
+  .size-col-header { font-size: 0.7rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; }
+  .size-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+  .size-row:last-child { border-bottom: none; }
+  .size-label { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--dark); }
+  .size-sub { font-size: 0.68rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+  .size-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
+
+  /* ── Other products ── */
+  .other-product-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+  .other-product-row:last-child { border-bottom: none; }
+  .other-product-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
+  .coming-badge { font-size: 0.65rem; background: rgba(201,168,76,0.15); color: var(--gold-dark); padding: 0.15rem 0.4rem; border-radius: 2px; letter-spacing: 0.05em; display: inline-block; margin-top: 0.15rem; }
+
+  /* ── Urgency ── */
+  .urgency-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1rem; }
+  @media (max-width: 400px) { .urgency-options { grid-template-columns: 1fr 1fr; } }
+  .urgency-opt {
+    border: 1.5px solid var(--border); border-radius: 3px; padding: 0.65rem 0.5rem;
+    text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.82rem;
+    font-weight: 500; color: var(--mid); background: rgba(255,255,255,0.5);
+  }
+  .urgency-opt:hover { border-color: var(--gold-light); }
+  .urgency-opt.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); color: var(--dark); }
+  .urgency-opt .urg-icon { font-size: 1.1rem; display: block; margin-bottom: 0.25rem; }
+  .date-wrap { margin-top: 0.75rem; display: none; }
+  .date-wrap.show { display: block; }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%; background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, var(--gold-light) 100%);
+    color: white; border: none; border-radius: 3px; padding: 1.05rem 2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600;
+    letter-spacing: 0.05em; cursor: pointer; transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(139,105,20,0.3); margin-top: 0.5rem;
+  }
+  .submit-btn:hover { opacity: 0.93; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(139,105,20,0.38); }
+  .submit-btn:active { transform: translateY(0); }
+  .notice { margin-top: 1.5rem; background: rgba(201,168,76,0.07); border: 1px solid var(--border); border-radius: 3px; padding: 1rem 1.25rem; font-size: 0.82rem; color: var(--mid); line-height: 1.6; text-align: center; }
+  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(250,247,240,0.96); z-index: 100; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+  .success-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem; box-shadow: 0 8px 30px rgba(139,105,20,0.25); }
+  .success-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+  .success-sub { font-size: 0.9rem; color: var(--mid); max-width: 320px; line-height: 1.6; }
+  .new-order-btn { margin-top: 2rem; background: transparent; border: 1.5px solid var(--gold); color: var(--gold-dark); border-radius: 3px; padding: 0.75rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+  .new-order-btn:hover { background: var(--gold); color: white; }
+  .err { display: none; color: #c0392b; font-size: 0.78rem; margin-top: 0.3rem; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<svg class="strands" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M280 10 Q240 80 260 160 Q280 240 240 310" stroke="#C9A84C" stroke-width="1.5"/>
+  <path d="M300 0 Q255 90 275 170 Q295 250 255 315" stroke="#C9A84C" stroke-width="1"/>
+  <path d="M260 20 Q225 70 245 150 Q265 230 225 305" stroke="#E8C97A" stroke-width="1"/>
+  <circle cx="280" cy="10" r="4" fill="#C9A84C"/>
+  <circle cx="300" cy="0" r="3" fill="#C9A84C"/>
+  <circle cx="260" cy="20" r="3" fill="#E8C97A"/>
+</svg>
+
+<div class="page-wrap">
+  <header>
+    <div class="logo-badge">✦ Premium Quality</div>
+    <h1>BMK <span>Marketing</span></h1>
+    <p class="tagline">Place Your Order — Fast, Simple & Secure</p>
+  </header>
+
+  <div class="card">
+    <form id="orderForm" novalidate>
+
+      <!-- Customer Details -->
+      <p class="section-label"><span class="dot"></span> Customer Details</p>
+      <div class="form-group">
+        <label for="name">Full Name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="Your full name" />
+        <p class="err" id="err-name">Please enter your name.</p>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="opt">(optional)</span></label>
+          <div class="phone-wrap">
+            <div class="phone-prefix">+91</div>
+            <input type="tel" id="phone" placeholder="98765 43210" maxlength="10" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Delivery Address <span class="opt">(optional)</span></label>
+          <input type="text" id="address" placeholder="City / Area" />
+        </div>
+      </div>
+
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+      <!-- Saffron -->
+      <p class="section-label"><span class="dot"></span> Saffron</p>
+      <p class="err" id="err-products" style="margin-bottom:0.75rem;">Please enter at least one product quantity.</p>
+
+      <div class="brand-tabs">
+        <div class="brand-tab active" data-brand="indiagate">India Gate</div>
+        <div class="brand-tab" data-brand="goldmedal">Gold Medal</div>
+        <div class="brand-tab" data-brand="minar">Minar</div>
+      </div>
+
+      <!-- India Gate -->
+      <div class="brand-panel active" id="panel-indiagate">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-05-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-1-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-5-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-5-rate" />
+        </div>
+      </div>
+
+      <!-- Gold Medal -->
+      <div class="brand-panel" id="panel-goldmedal">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-05-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-1-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-5-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-5-rate" />
+        </div>
+      </div>
+
+      <!-- Minar -->
+      <div class="brand-panel" id="panel-minar">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-05-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-1-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-5-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-5-rate" />
+        </div>
+      </div>
+
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+      <!-- Other Products -->
+      <p class="section-label"><span class="dot"></span> Other Products</p>
+      <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+
+      <div class="other-product-row">
+        <div><div class="size-label">Walnuts</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="walnut-qty" />
+        <input type="text" placeholder="₹ rate" id="walnut-rate" />
+      </div>
+      <div class="other-product-row">
+        <div><div class="size-label">Gold Leaf</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="goldleaf-qty" />
+        <input type="text" placeholder="₹ rate" id="goldleaf-rate" />
+      </div>
+      <div class="other-product-row">
+        <div><div class="size-label">Silver Leaf</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="silverleaf-qty" />
+        <input type="text" placeholder="₹ rate" id="silverleaf-rate" />
+      </div>
+
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+      <!-- Delivery Urgency -->
+      <p class="section-label"><span class="dot"></span> Delivery Urgency <span class="req">*</span></p>
+      <div class="urgency-options">
+        <div class="urgency-opt" data-val="Urgent – Today"><span class="urg-icon">🔴</span>Urgent – Today</div>
+        <div class="urgency-opt" data-val="Soon – 2-3 Days"><span class="urg-icon">🟡</span>Soon – 2-3 Days</div>
+        <div class="urgency-opt" data-val="Flexible"><span class="urg-icon">🟢</span>Flexible</div>
+        <div class="urgency-opt" data-val="Specific Date"><span class="urg-icon">📅</span>Specific Date</div>
+      </div>
+      <div class="date-wrap" id="dateWrap">
+        <label for="deliveryDate">Preferred Delivery Date</label>
+        <input type="date" id="deliveryDate" />
+      </div>
+      <p class="err" id="err-urgency">Please select a delivery urgency.</p>
+
+      <div class="form-group" style="margin-top:1.4rem;">
+        <label for="notes">Special Instructions <span class="opt">(optional)</span></label>
+        <textarea id="notes" placeholder="Any special requests or delivery instructions…" style="min-height:64px;"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Place My Order →</button>
+      <div class="notice">🔒 Your order is submitted securely. Our team will confirm via WhatsApp or call within a few hours.</div>
+
+    </form>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">✓</div>
+  <p class="success-title">Order Placed!</p>
+  <p class="success-sub">Thank you! Your order has been received. Our team at BMK Marketing will confirm it shortly.</p>
+  <button class="new-order-btn" onclick="resetForm()">Place Another Order</button>
+</div>
+
+<script>
+  // Brand tabs
+  document.querySelectorAll('.brand-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.brand-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.brand).classList.add('active');
+    });
+  });
+
+  // Urgency
+  document.querySelectorAll('.urgency-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('err-urgency').style.display = 'none';
+      document.getElementById('dateWrap').classList.toggle('show', opt.dataset.val === 'Specific Date');
+    });
+  });
+
+  // All variants
+  const saffronVariants = [
+    { id: 'ig-05',  label: 'India Gate 0.5g' },
+    { id: 'ig-1',   label: 'India Gate 1g'   },
+    { id: 'ig-5',   label: 'India Gate 5g'   },
+    { id: 'gm-05',  label: 'Gold Medal 0.5g' },
+    { id: 'gm-1',   label: 'Gold Medal 1g'   },
+    { id: 'gm-5',   label: 'Gold Medal 5g'   },
+    { id: 'mn-05',  label: 'Minar 0.5g'      },
+    { id: 'mn-1',   label: 'Minar 1g'        },
+    { id: 'mn-5',   label: 'Minar 5g'        },
+  ];
+
+  const otherVariants = [
+    { id: 'walnut',     label: 'Walnuts'       },
+    { id: 'goldleaf',   label: 'Gold Leaf'   },
+    { id: 'silverleaf', label: 'Silver Leaf' },
+  ];
+
+  // Submit
+  document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    let valid = true;
+    const show = (id) => { document.getElementById(id).style.display = 'block'; valid = false; };
+    const hide = (id) => { document.getElementById(id).style.display = 'none'; };
+
+    const name = document.getElementById('name').value.trim();
+    name ? hide('err-name') : show('err-name');
+
+    // Build order lines
+    const orderLines = [];
+    [...saffronVariants, ...otherVariants].forEach(v => {
+      const qty  = document.getElementById(v.id + '-qty').value.trim();
+      const rate = document.getElementById(v.id + '-rate').value.trim();
+      if (qty && parseInt(qty) > 0) {
+        orderLines.push(rate ? `${v.label} x${qty} @ ₹${rate}` : `${v.label} x${qty}`);
+      }
+    });
+    orderLines.length > 0 ? hide('err-products') : show('err-products');
+
+    const urgencyEl = document.querySelector('.urgency-opt.selected');
+    urgencyEl ? hide('err-urgency') : show('err-urgency');
+
+    if (!valid) return;
+
+    const phone     = document.getElementById('phone').value.trim();
+    const address   = document.getElementById('address').value.trim();
+    const notes     = document.getElementById('notes').value.trim();
+    const items     = orderLines.join(' | ');
+    const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    let urgency     = urgencyEl.dataset.val;
+    if (urgency === 'Specific Date') {
+      const d = document.getElementById('deliveryDate').value;
+      urgency = d ? 'Specific Date: ' + d : 'Specific Date';
+    }
+
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
+    try {
+      const params = new URLSearchParams({
+        name:      name,
+        phone:     phone ? '+91 ' + phone : '',
+        address:   address,
+        products:  items,
+        urgency:   urgency,
+        notes:     notes,
+        timestamp: timestamp
+      });
+      await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+    } catch (_) {}
+
+    document.getElementById('successOverlay').classList.add('show');
+  });
+
+  function resetForm() {
+    document.getElementById('orderForm').reset();
+    document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.brand-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    document.querySelectorAll('.brand-panel').forEach((p, i) => p.classList.toggle('active', i === 0));
+    document.getElementById('dateWrap').classList.remove('show');
+    document.getElementById('successOverlay').classList.remove('show');
+  }
+</script>
+</body>
+</html>
