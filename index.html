@@ -17,433 +17,133 @@
     --border: rgba(201,168,76,0.25);
     --input-bg: rgba(255,255,255,0.6);
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background-color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── Background ── */
+  body { background-color: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; overflow-x: hidden; }
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 40% at 90% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 90% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
   }
-
-  /* Saffron strands decoration */
-  .strands {
-    position: fixed;
-    top: 0; right: 0;
-    width: 320px; height: 320px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.18;
-  }
-
-  .page-wrap {
-    position: relative;
-    z-index: 1;
-    max-width: 660px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 5rem;
-  }
-
-  /* ── Header ── */
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-    animation: fadeDown 0.8s ease both;
-  }
-
+  .strands { position: fixed; top: 0; right: 0; width: 320px; height: 320px; pointer-events: none; z-index: 0; opacity: 0.18; }
+  .page-wrap { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  header { text-align: center; margin-bottom: 3rem; animation: fadeDown 0.8s ease both; }
   .logo-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
     background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-    color: #fff;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 0.35rem 1rem;
-    border-radius: 2px;
-    margin-bottom: 1rem;
+    color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 0.75rem;
+    font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1rem;
   }
-
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 6vw, 3.8rem);
-    font-weight: 300;
-    color: var(--dark);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-  }
-
-  h1 span {
-    color: var(--gold);
-    font-weight: 600;
-  }
-
-  .tagline {
-    margin-top: 0.75rem;
-    font-size: 0.9rem;
-    color: var(--gold-dark);
-    letter-spacing: 0.05em;
-    font-weight: 300;
-  }
-
-  /* ── Divider ── */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 2rem 0;
-  }
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-  }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 300; color: var(--dark); line-height: 1.1; }
+  h1 span { color: var(--gold); font-weight: 600; }
+  .tagline { margin-top: 0.75rem; font-size: 0.9rem; color: var(--gold-dark); letter-spacing: 0.05em; font-weight: 300; }
+  .divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
   .divider-icon { color: var(--gold); font-size: 1rem; }
-
-  /* ── Card ── */
   .card {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2.5rem 2.5rem;
+    background: rgba(255,255,255,0.72); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem;
     box-shadow: 0 8px 40px rgba(139,105,20,0.08), 0 2px 8px rgba(139,105,20,0.06);
     animation: fadeUp 0.9s ease 0.2s both;
   }
-
-  @media (max-width: 520px) {
-    .card { padding: 1.75rem 1.25rem; }
-  }
-
-  /* ── Form sections ── */
+  @media (max-width: 520px) { .card { padding: 1.75rem 1.25rem; } }
   .section-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--mid);
-    letter-spacing: 0.04em;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600;
+    color: var(--mid); letter-spacing: 0.04em; margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
   }
-
-  .section-label .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
+  .section-label .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .form-group { margin-bottom: 1.4rem; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.45rem; }
+  .opt { color: var(--gold-dark); font-size: 0.7rem; font-weight: 300; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+  .req { color: var(--gold); margin-left: 2px; }
+  .phone-wrap { display: flex; }
+  .phone-prefix {
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border); border-right: none;
+    border-radius: 3px 0 0 3px; padding: 0.75rem 0.9rem; font-size: 0.95rem;
+    color: var(--gold-dark); font-weight: 500; white-space: nowrap; display: flex; align-items: center;
   }
-
-  .form-group {
-    margin-bottom: 1.4rem;
+  .phone-wrap input { border-radius: 0 3px 3px 0 !important; flex: 1; }
+  input[type="text"], input[type="tel"], input[type="number"], input[type="date"],
+  select, textarea {
+    width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 3px;
+    padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
   }
-
-  label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gold-dark);
-    margin-bottom: 0.45rem;
-  }
-
-  input[type="text"],
-  input[type="tel"],
-  input[type="number"],
-  select,
-  textarea {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 0.75rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-    cursor: pointer;
-  }
-
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
   textarea { resize: vertical; min-height: 80px; }
-
-  .row-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   @media (max-width: 460px) { .row-2 { grid-template-columns: 1fr; } }
 
-  /* Products grid */
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 1.4rem;
+  /* ── Brand tabs ── */
+  .brand-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .brand-tab {
+    padding: 0.45rem 1.1rem; border: 1.5px solid var(--border); border-radius: 2px;
+    cursor: pointer; font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+    font-weight: 500; color: var(--mid); background: rgba(255,255,255,0.5); transition: all 0.2s;
   }
-  @media (max-width: 460px) { .products-grid { grid-template-columns: 1fr; } }
+  .brand-tab:hover { border-color: var(--gold-light); }
+  .brand-tab.active { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--dark); }
+  .brand-panel { display: none; }
+  .brand-panel.active { display: block; }
 
-  .product-card {
-    border: 1.5px solid var(--border);
-    border-radius: 3px;
-    padding: 0.9rem 1rem;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s, transform 0.15s;
-    background: rgba(255,255,255,0.5);
-    position: relative;
-    user-select: none;
+  /* ── Size rows ── */
+  .size-headers { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px dashed var(--border); margin-bottom: 0.25rem; }
+  .size-col-header { font-size: 0.7rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; }
+  .size-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+  .size-row:last-child { border-bottom: none; }
+  .size-label { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--dark); }
+  .size-sub { font-size: 0.68rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+  .size-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
+
+  /* ── Other products ── */
+  .other-product-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+  .other-product-row:last-child { border-bottom: none; }
+  .other-product-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
+  .coming-badge { font-size: 0.65rem; background: rgba(201,168,76,0.15); color: var(--gold-dark); padding: 0.15rem 0.4rem; border-radius: 2px; letter-spacing: 0.05em; display: inline-block; margin-top: 0.15rem; }
+
+  /* ── Urgency ── */
+  .urgency-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1rem; }
+  @media (max-width: 400px) { .urgency-options { grid-template-columns: 1fr 1fr; } }
+  .urgency-opt {
+    border: 1.5px solid var(--border); border-radius: 3px; padding: 0.65rem 0.5rem;
+    text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.82rem;
+    font-weight: 500; color: var(--mid); background: rgba(255,255,255,0.5);
   }
-
-  .product-card:hover {
-    border-color: var(--gold-light);
-    transform: translateY(-1px);
-  }
-
-  .product-card.selected {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.08);
-  }
-
-  .product-card .check {
-    position: absolute;
-    top: 0.6rem; right: 0.6rem;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.65rem;
-    color: transparent;
-    background: white;
-    transition: all 0.2s;
-  }
-
-  .product-card.selected .check {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: white;
-  }
-
-  .product-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dark);
-    line-height: 1.3;
-    margin-bottom: 0.25rem;
-    padding-right: 1.5rem;
-  }
-
-  .product-tag {
-    font-size: 0.7rem;
-    color: var(--gold-dark);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .qty-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.6rem;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.3s, max-height 0.3s;
-    pointer-events: none;
-  }
-
-  .product-card.selected .qty-row {
-    opacity: 1;
-    max-height: 50px;
-    pointer-events: all;
-  }
-
-  .qty-label {
-    font-size: 0.72rem;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    white-space: nowrap;
-  }
-
-  .qty-input {
-    width: 70px !important;
-    padding: 0.35rem 0.6rem !important;
-    font-size: 0.85rem !important;
-    text-align: center;
-  }
-
-  /* Payment */
-  .payment-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
-    margin-bottom: 1.4rem;
-  }
-  @media (max-width: 380px) { .payment-options { grid-template-columns: 1fr 1fr; } }
-
-  .pay-option {
-    border: 1.5px solid var(--border);
-    border-radius: 3px;
-    padding: 0.75rem 0.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--mid);
-    background: rgba(255,255,255,0.5);
-  }
-
-  .pay-option:hover { border-color: var(--gold-light); }
-  .pay-option.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); color: var(--dark); }
-  .pay-option .pay-icon { font-size: 1.2rem; display: block; margin-bottom: 0.3rem; }
+  .urgency-opt:hover { border-color: var(--gold-light); }
+  .urgency-opt.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); color: var(--dark); }
+  .urgency-opt .urg-icon { font-size: 1.1rem; display: block; margin-bottom: 0.25rem; }
+  .date-wrap { margin-top: 0.75rem; display: none; }
+  .date-wrap.show { display: block; }
 
   /* Submit */
   .submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, var(--gold-light) 100%);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 1.05rem 2rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(139,105,20,0.3);
-    margin-top: 0.5rem;
+    width: 100%; background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, var(--gold-light) 100%);
+    color: white; border: none; border-radius: 3px; padding: 1.05rem 2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600;
+    letter-spacing: 0.05em; cursor: pointer; transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(139,105,20,0.3); margin-top: 0.5rem;
   }
-
-  .submit-btn:hover {
-    opacity: 0.93;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 28px rgba(139,105,20,0.38);
-  }
-
+  .submit-btn:hover { opacity: 0.93; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(139,105,20,0.38); }
   .submit-btn:active { transform: translateY(0); }
-
-  /* Notice */
-  .notice {
-    margin-top: 1.5rem;
-    background: rgba(201,168,76,0.07);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 1rem 1.25rem;
-    font-size: 0.82rem;
-    color: var(--mid);
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* Success */
-  .success-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(250,247,240,0.96);
-    z-index: 100;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-  }
-
+  .notice { margin-top: 1.5rem; background: rgba(201,168,76,0.07); border: 1px solid var(--border); border-radius: 3px; padding: 1rem 1.25rem; font-size: 0.82rem; color: var(--mid); line-height: 1.6; text-align: center; }
+  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(250,247,240,0.96); z-index: 100; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
   .success-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
-
-  .success-icon {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 8px 30px rgba(139,105,20,0.25);
-  }
-
-  .success-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-  }
-
-  .success-sub {
-    font-size: 0.9rem;
-    color: var(--mid);
-    max-width: 320px;
-    line-height: 1.6;
-  }
-
-  .new-order-btn {
-    margin-top: 2rem;
-    background: transparent;
-    border: 1.5px solid var(--gold);
-    color: var(--gold-dark);
-    border-radius: 3px;
-    padding: 0.75rem 2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem; box-shadow: 0 8px 30px rgba(139,105,20,0.25); }
+  .success-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+  .success-sub { font-size: 0.9rem; color: var(--mid); max-width: 320px; line-height: 1.6; }
+  .new-order-btn { margin-top: 2rem; background: transparent; border: 1.5px solid var(--gold); color: var(--gold-dark); border-radius: 3px; padding: 0.75rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
   .new-order-btn:hover { background: var(--gold); color: white; }
-
-  /* Error */
   .err { display: none; color: #c0392b; font-size: 0.78rem; margin-top: 0.3rem; }
-
-  /* Animations */
   @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
   @keyframes fadeUp   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   @keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
-
-  /* Required star */
-  .req { color: var(--gold); margin-left: 2px; }
 </style>
 </head>
 <body>
 
-<!-- Saffron strands SVG decoration -->
 <svg class="strands" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M280 10 Q240 80 260 160 Q280 240 240 310" stroke="#C9A84C" stroke-width="1.5"/>
   <path d="M300 0 Q255 90 275 170 Q295 250 255 315" stroke="#C9A84C" stroke-width="1"/>
@@ -451,12 +151,9 @@
   <circle cx="280" cy="10" r="4" fill="#C9A84C"/>
   <circle cx="300" cy="0" r="3" fill="#C9A84C"/>
   <circle cx="260" cy="20" r="3" fill="#E8C97A"/>
-  <path d="M240 310 Q235 305 245 300 Q250 310 240 310" fill="#C9A84C"/>
-  <path d="M255 315 Q250 308 260 305 Q264 314 255 315" fill="#C9A84C"/>
 </svg>
 
 <div class="page-wrap">
-
   <header>
     <div class="logo-badge">✦ Premium Quality</div>
     <h1>BMK <span>Marketing</span></h1>
@@ -466,71 +163,150 @@
   <div class="card">
     <form id="orderForm" novalidate>
 
-      <!-- Customer Info -->
+      <!-- Customer Details -->
       <p class="section-label"><span class="dot"></span> Customer Details</p>
-
+      <div class="form-group">
+        <label for="name">Full Name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="Your full name" />
+        <p class="err" id="err-name">Please enter your name.</p>
+      </div>
       <div class="row-2">
         <div class="form-group">
-          <label for="name">Full Name <span class="req">*</span></label>
-          <input type="text" id="name" placeholder="Your name" />
-          <p class="err" id="err-name">Please enter your name.</p>
+          <label for="phone">Phone Number <span class="opt">(optional)</span></label>
+          <div class="phone-wrap">
+            <div class="phone-prefix">+91</div>
+            <input type="tel" id="phone" placeholder="98765 43210" maxlength="10" />
+          </div>
         </div>
         <div class="form-group">
-          <label for="phone">Phone Number <span class="req">*</span></label>
-          <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" />
-          <p class="err" id="err-phone">Please enter your phone number.</p>
+          <label for="address">Delivery Address <span class="opt">(optional)</span></label>
+          <input type="text" id="address" placeholder="City / Area" />
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="address">Delivery Address <span class="req">*</span></label>
-        <textarea id="address" placeholder="House/Flat no., Street, City, State, PIN code"></textarea>
-        <p class="err" id="err-address">Please enter your delivery address.</p>
       </div>
 
       <div class="divider"><span class="divider-icon">✦</span></div>
 
-      <!-- Products -->
-      <p class="section-label"><span class="dot"></span> Select Products</p>
-      <p class="err" id="err-products" style="margin-bottom:0.75rem;">Please select at least one product.</p>
+      <!-- Saffron -->
+      <p class="section-label"><span class="dot"></span> Saffron</p>
+      <p class="err" id="err-products" style="margin-bottom:0.75rem;">Please enter at least one product quantity.</p>
 
-      <div class="products-grid" id="productsGrid">
-        <!-- JS will render these -->
+      <div class="brand-tabs">
+        <div class="brand-tab active" data-brand="indiagate">India Gate</div>
+        <div class="brand-tab" data-brand="goldmedal">Gold Medal</div>
+        <div class="brand-tab" data-brand="minar">Minar</div>
+      </div>
+
+      <!-- India Gate -->
+      <div class="brand-panel active" id="panel-indiagate">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-05-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-1-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">India Gate</div></div>
+          <input type="number" min="0" placeholder="0" id="ig-5-qty" />
+          <input type="text" placeholder="₹ rate" id="ig-5-rate" />
+        </div>
+      </div>
+
+      <!-- Gold Medal -->
+      <div class="brand-panel" id="panel-goldmedal">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-05-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-1-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">Gold Medal</div></div>
+          <input type="number" min="0" placeholder="0" id="gm-5-qty" />
+          <input type="text" placeholder="₹ rate" id="gm-5-rate" />
+        </div>
+      </div>
+
+      <!-- Minar -->
+      <div class="brand-panel" id="panel-minar">
+        <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
+        <div class="size-row">
+          <div><div class="size-label">0.5g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-05-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-05-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">1g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-1-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-1-rate" />
+        </div>
+        <div class="size-row">
+          <div><div class="size-label">5g</div><div class="size-sub">Minar</div></div>
+          <input type="number" min="0" placeholder="0" id="mn-5-qty" />
+          <input type="text" placeholder="₹ rate" id="mn-5-rate" />
+        </div>
       </div>
 
       <div class="divider"><span class="divider-icon">✦</span></div>
 
-      <!-- Payment -->
-      <p class="section-label"><span class="dot"></span> Payment Method</p>
-      <div class="payment-options" id="paymentOptions">
-        <div class="pay-option" data-val="Cash on Delivery">
-          <span class="pay-icon">💵</span> Cash on Delivery
-        </div>
-        <div class="pay-option" data-val="UPI">
-          <span class="pay-icon">📱</span> UPI
-        </div>
-        <div class="pay-option" data-val="Bank Transfer">
-          <span class="pay-icon">🏦</span> Bank Transfer
-        </div>
-      </div>
-      <p class="err" id="err-payment">Please select a payment method.</p>
+      <!-- Other Products -->
+      <p class="section-label"><span class="dot"></span> Other Products</p>
+      <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
 
-      <div class="form-group" style="margin-top:1rem;">
-        <label for="notes">Special Instructions <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+      <div class="other-product-row">
+        <div><div class="size-label">Walnuts</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="walnut-qty" />
+        <input type="text" placeholder="₹ rate" id="walnut-rate" />
+      </div>
+      <div class="other-product-row">
+        <div><div class="size-label">Gold Leaf</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="goldleaf-qty" />
+        <input type="text" placeholder="₹ rate" id="goldleaf-rate" />
+      </div>
+      <div class="other-product-row">
+        <div><div class="size-label">Silver Leaf</div><div class="coming-badge">Coming soon</div></div>
+        <input type="number" min="0" placeholder="0" id="silverleaf-qty" />
+        <input type="text" placeholder="₹ rate" id="silverleaf-rate" />
+      </div>
+
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+      <!-- Delivery Urgency -->
+      <p class="section-label"><span class="dot"></span> Delivery Urgency <span class="req">*</span></p>
+      <div class="urgency-options">
+        <div class="urgency-opt" data-val="Urgent – Today"><span class="urg-icon">🔴</span>Urgent – Today</div>
+        <div class="urgency-opt" data-val="Soon – 2-3 Days"><span class="urg-icon">🟡</span>Soon – 2-3 Days</div>
+        <div class="urgency-opt" data-val="Flexible"><span class="urg-icon">🟢</span>Flexible</div>
+        <div class="urgency-opt" data-val="Specific Date"><span class="urg-icon">📅</span>Specific Date</div>
+      </div>
+      <div class="date-wrap" id="dateWrap">
+        <label for="deliveryDate">Preferred Delivery Date</label>
+        <input type="date" id="deliveryDate" />
+      </div>
+      <p class="err" id="err-urgency">Please select a delivery urgency.</p>
+
+      <div class="form-group" style="margin-top:1.4rem;">
+        <label for="notes">Special Instructions <span class="opt">(optional)</span></label>
         <textarea id="notes" placeholder="Any special requests or delivery instructions…" style="min-height:64px;"></textarea>
       </div>
 
       <button type="submit" class="submit-btn">Place My Order →</button>
-
-      <div class="notice">
-        🔒 Your order details are submitted securely. Our team will confirm via WhatsApp or call within a few hours.
-      </div>
+      <div class="notice">🔒 Your order is submitted securely. Our team will confirm via WhatsApp or call within a few hours.</div>
 
     </form>
   </div>
 </div>
 
-<!-- Success overlay -->
+<!-- Success -->
 <div class="success-overlay" id="successOverlay">
   <div class="success-icon">✓</div>
   <p class="success-title">Order Placed!</p>
@@ -539,149 +315,107 @@
 </div>
 
 <script>
-  // ── Products ──
-  const products = [
-    { id: 'p1', name: 'India Gate Saffron', tag: 'Premium Grade' },
-    { id: 'p2', name: 'Minar Saffron',      tag: 'Finest Quality' },
-    { id: 'p3', name: 'Gold Meda Saffron',  tag: 'Top Selection' },
-    { id: 'p4', name: 'Silver Leaves',      tag: 'Pure & Genuine' },
-    { id: 'p5', name: 'Gold Leaves',        tag: 'Pure & Genuine' },
+  // Brand tabs
+  document.querySelectorAll('.brand-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.brand-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.brand).classList.add('active');
+    });
+  });
+
+  // Urgency
+  document.querySelectorAll('.urgency-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('err-urgency').style.display = 'none';
+      document.getElementById('dateWrap').classList.toggle('show', opt.dataset.val === 'Specific Date');
+    });
+  });
+
+  // All variants
+  const saffronVariants = [
+    { id: 'ig-05',  label: 'India Gate 0.5g' },
+    { id: 'ig-1',   label: 'India Gate 1g'   },
+    { id: 'ig-5',   label: 'India Gate 5g'   },
+    { id: 'gm-05',  label: 'Gold Medal 0.5g' },
+    { id: 'gm-1',   label: 'Gold Medal 1g'   },
+    { id: 'gm-5',   label: 'Gold Medal 5g'   },
+    { id: 'mn-05',  label: 'Minar 0.5g'      },
+    { id: 'mn-1',   label: 'Minar 1g'        },
+    { id: 'mn-5',   label: 'Minar 5g'        },
   ];
 
-  const grid = document.getElementById('productsGrid');
+  const otherVariants = [
+    { id: 'walnut',     label: 'Walnuts'       },
+    { id: 'goldleaf',   label: 'Gold Leaf'   },
+    { id: 'silverleaf', label: 'Silver Leaf' },
+  ];
 
-  products.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.dataset.id = p.id;
-    card.innerHTML = `
-      <div class="check">✓</div>
-      <div class="product-name">${p.name}</div>
-      <div class="product-tag">${p.tag}</div>
-      <div class="qty-row">
-        <span class="qty-label">Qty</span>
-        <input class="qty-input" type="number" min="1" value="1" id="qty-${p.id}" onclick="e => e.stopPropagation()" />
-      </div>`;
-    card.addEventListener('click', () => {
-      card.classList.toggle('selected');
-      document.getElementById('err-products').style.display = 'none';
-    });
-    // Stop click on qty from toggling card
-    card.querySelector('.qty-input').addEventListener('click', e => e.stopPropagation());
-    grid.appendChild(card);
-  });
-
-  // ── Payment ──
-  document.querySelectorAll('.pay-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      document.getElementById('err-payment').style.display = 'none';
-    });
-  });
-
-  // ── Form Submit ──
+  // Submit
   document.getElementById('orderForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     let valid = true;
-
     const show = (id) => { document.getElementById(id).style.display = 'block'; valid = false; };
     const hide = (id) => { document.getElementById(id).style.display = 'none'; };
 
-    const name    = document.getElementById('name').value.trim();
-    const phone   = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
+    const name = document.getElementById('name').value.trim();
+    name ? hide('err-name') : show('err-name');
 
-    name    ? hide('err-name')    : show('err-name');
-    phone   ? hide('err-phone')   : show('err-phone');
-    address ? hide('err-address') : show('err-address');
+    // Build order lines
+    const orderLines = [];
+    [...saffronVariants, ...otherVariants].forEach(v => {
+      const qty  = document.getElementById(v.id + '-qty').value.trim();
+      const rate = document.getElementById(v.id + '-rate').value.trim();
+      if (qty && parseInt(qty) > 0) {
+        orderLines.push(rate ? `${v.label} x${qty} @ ₹${rate}` : `${v.label} x${qty}`);
+      }
+    });
+    orderLines.length > 0 ? hide('err-products') : show('err-products');
 
-    const selected = [...document.querySelectorAll('.product-card.selected')];
-    selected.length ? hide('err-products') : show('err-products');
-
-    const payment = document.querySelector('.pay-option.selected');
-    payment ? hide('err-payment') : show('err-payment');
+    const urgencyEl = document.querySelector('.urgency-opt.selected');
+    urgencyEl ? hide('err-urgency') : show('err-urgency');
 
     if (!valid) return;
 
-    // Build order summary
-    const items = selected.map(card => {
-      const pId  = card.dataset.id;
-      const pObj = products.find(p => p.id === pId);
-      const qty  = document.getElementById('qty-' + pId).value;
-      return `${pObj.name} (x${qty})`;
-    }).join(', ');
-
-    const notes   = document.getElementById('notes').value.trim();
-    const payVal  = payment.dataset.val;
+    const phone     = document.getElementById('phone').value.trim();
+    const address   = document.getElementById('address').value.trim();
+    const notes     = document.getElementById('notes').value.trim();
+    const items     = orderLines.join(' | ');
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    let urgency     = urgencyEl.dataset.val;
+    if (urgency === 'Specific Date') {
+      const d = document.getElementById('deliveryDate').value;
+      urgency = d ? 'Specific Date: ' + d : 'Specific Date';
+    }
 
-    // ── Google Sheets submission via Apps Script ──
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
-
     try {
-      const params = new URLSearchParams();
-      params.append('name',      name);
-      params.append('phone',     phone);
-      params.append('address',   address);
-      params.append('products',  items);
-      params.append('payment',   payVal);
-      params.append('notes',     notes);
-      params.append('timestamp', timestamp);
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
+      const params = new URLSearchParams({
+        name:      name,
+        phone:     phone ? '+91 ' + phone : '',
+        address:   address,
+        products:  items,
+        urgency:   urgency,
+        notes:     notes,
+        timestamp: timestamp
       });
-    } catch (_) { /* no-cors is expected */ }
+      await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+    } catch (_) {}
 
     document.getElementById('successOverlay').classList.add('show');
   });
 
   function resetForm() {
     document.getElementById('orderForm').reset();
-    document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.brand-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    document.querySelectorAll('.brand-panel').forEach((p, i) => p.classList.toggle('active', i === 0));
+    document.getElementById('dateWrap').classList.remove('show');
     document.getElementById('successOverlay').classList.remove('show');
   }
 </script>
-
-<!--
-══════════════════════════════════════════════════════════════════
-  HOW TO CONNECT TO GOOGLE SHEETS (One-time setup, ~10 minutes)
-══════════════════════════════════════════════════════════════════
-
-STEP 1 — Create a Google Form
-  1. Go to forms.google.com → click "+"
-  2. Add these fields (Short answer for all):
-       - Customer Name
-       - Phone Number
-       - Delivery Address
-       - Products Ordered
-       - Payment Method
-       - Special Instructions
-       - Timestamp
-  3. Click the Responses tab → click the green Sheets icon to link to Google Sheets
-
-STEP 2 — Get the Form Action URL
-  1. In your Google Form, click the 3-dot menu → "Get pre-filled link"
-  2. Fill any dummy data → click "Get link" → copy the URL
-  3. Change "viewform?usp=pp_url" to "formResponse" — that's your GOOGLE_FORM_ACTION_URL
-
-STEP 3 — Get Field Entry IDs
-  1. Right-click your live form page → "View Page Source"
-  2. Search for "entry." to find IDs like entry.123456789
-  3. Replace entry.1000000, entry.1000001 etc. in the script above with your real IDs
-
-STEP 4 — Host the website FREE on GitHub Pages
-  1. Create a free account at github.com
-  2. New repo → upload this HTML file as "index.html"
-  3. Settings → Pages → Source: main branch → Save
-  4. Your site is live at: https://yourusername.github.io/repo-name
-
-That's it! Every order will appear as a new row in your Google Sheet automatically.
-══════════════════════════════════════════════════════════════════
--->
 </body>
 </html>
