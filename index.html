@@ -77,7 +77,6 @@
   .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   @media (max-width: 460px) { .row-2 { grid-template-columns: 1fr; } }
 
-  /* ── Brand tabs ── */
   .brand-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .brand-tab {
     padding: 0.45rem 1.1rem; border: 1.5px solid var(--border); border-radius: 2px;
@@ -89,7 +88,6 @@
   .brand-panel { display: none; }
   .brand-panel.active { display: block; }
 
-  /* ── Size rows ── */
   .size-headers { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px dashed var(--border); margin-bottom: 0.25rem; }
   .size-col-header { font-size: 0.7rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; }
   .size-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
@@ -98,13 +96,11 @@
   .size-sub { font-size: 0.68rem; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.04em; }
   .size-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
 
-  /* ── Other products ── */
   .other-product-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
   .other-product-row:last-child { border-bottom: none; }
   .other-product-row input { padding: 0.4rem 0.5rem !important; font-size: 0.88rem !important; text-align: center; }
   .coming-badge { font-size: 0.65rem; background: rgba(201,168,76,0.15); color: var(--gold-dark); padding: 0.15rem 0.4rem; border-radius: 2px; letter-spacing: 0.05em; display: inline-block; margin-top: 0.15rem; }
 
-  /* ── Urgency ── */
   .urgency-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1rem; }
   @media (max-width: 400px) { .urgency-options { grid-template-columns: 1fr 1fr; } }
   .urgency-opt {
@@ -118,7 +114,6 @@
   .date-wrap { margin-top: 0.75rem; display: none; }
   .date-wrap.show { display: block; }
 
-  /* Submit */
   .submit-btn {
     width: 100%; background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, var(--gold-light) 100%);
     color: white; border: none; border-radius: 3px; padding: 1.05rem 2rem;
@@ -163,13 +158,13 @@
   <div class="card">
     <form id="orderForm" novalidate>
 
-      <!-- Customer Details -->
       <p class="section-label"><span class="dot"></span> Customer Details</p>
       <div class="form-group">
         <label for="name">Full Name <span class="req">*</span></label>
         <input type="text" id="name" placeholder="Your full name" />
         <p class="err" id="err-name">Please enter your name.</p>
       </div>
+
       <div class="row-2">
         <div class="form-group">
           <label for="phone">Phone Number <span class="opt">(optional)</span></label>
@@ -186,7 +181,6 @@
 
       <div class="divider"><span class="divider-icon">✦</span></div>
 
-      <!-- Saffron -->
       <p class="section-label"><span class="dot"></span> Saffron</p>
       <p class="err" id="err-products" style="margin-bottom:0.75rem;">Please enter at least one product quantity.</p>
 
@@ -196,7 +190,6 @@
         <div class="brand-tab" data-brand="minar">Minar</div>
       </div>
 
-      <!-- India Gate -->
       <div class="brand-panel active" id="panel-indiagate">
         <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
         <div class="size-row">
@@ -216,7 +209,6 @@
         </div>
       </div>
 
-      <!-- Gold Medal -->
       <div class="brand-panel" id="panel-goldmedal">
         <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
         <div class="size-row">
@@ -236,7 +228,6 @@
         </div>
       </div>
 
-      <!-- Minar -->
       <div class="brand-panel" id="panel-minar">
         <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
         <div class="size-row">
@@ -258,7 +249,6 @@
 
       <div class="divider"><span class="divider-icon">✦</span></div>
 
-      <!-- Other Products -->
       <p class="section-label"><span class="dot"></span> Other Products</p>
       <div class="size-headers"><div></div><div class="size-col-header">Qty</div><div class="size-col-header">Rate (₹)</div></div>
 
@@ -280,7 +270,6 @@
 
       <div class="divider"><span class="divider-icon">✦</span></div>
 
-      <!-- Delivery Urgency -->
       <p class="section-label"><span class="dot"></span> Delivery Urgency <span class="req">*</span></p>
       <div class="urgency-options">
         <div class="urgency-opt" data-val="Urgent – Today"><span class="urg-icon">🔴</span>Urgent – Today</div>
@@ -306,16 +295,14 @@
   </div>
 </div>
 
-<!-- Success -->
 <div class="success-overlay" id="successOverlay">
   <div class="success-icon">✓</div>
   <p class="success-title">Order Placed!</p>
-  <p class="success-sub">Thank you! Your order has been received. Our team at BMK Marketing will confirm it shortly.</p>
+  <p class="success-sub" id="successSub">Thank you! Your order has been received. Our team at BMK Marketing will confirm it shortly.</p>
   <button class="new-order-btn" onclick="resetForm()">Place Another Order</button>
 </div>
 
 <script>
-  // Brand tabs
   document.querySelectorAll('.brand-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
@@ -325,7 +312,6 @@
     });
   });
 
-  // Urgency
   document.querySelectorAll('.urgency-opt').forEach(opt => {
     opt.addEventListener('click', () => {
       document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
@@ -335,77 +321,120 @@
     });
   });
 
-  // All variants
-  const saffronVariants = [
-    { id: 'ig-05',  label: 'India Gate 0.5g' },
-    { id: 'ig-1',   label: 'India Gate 1g'   },
-    { id: 'ig-5',   label: 'India Gate 5g'   },
-    { id: 'gm-05',  label: 'Gold Medal 0.5g' },
-    { id: 'gm-1',   label: 'Gold Medal 1g'   },
-    { id: 'gm-5',   label: 'Gold Medal 5g'   },
-    { id: 'mn-05',  label: 'Minar 0.5g'      },
-    { id: 'mn-1',   label: 'Minar 1g'        },
-    { id: 'mn-5',   label: 'Minar 5g'        },
-  ];
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
 
-  const otherVariants = [
-    { id: 'walnut',     label: 'Walnuts'       },
-    { id: 'goldleaf',   label: 'Gold Leaf'   },
-    { id: 'silverleaf', label: 'Silver Leaf' },
-  ];
+  function safeNumber(value) {
+    const cleaned = String(value || '').replace(/[^0-9.]/g, '').trim();
+    return cleaned;
+  }
 
-  // Submit
+  function collectItems() {
+    const items = [];
+
+    const products = [
+      { product: 'India Gate', weight: '0.5g', qtyId: 'ig-05-qty', rateId: 'ig-05-rate' },
+      { product: 'India Gate', weight: '1g',   qtyId: 'ig-1-qty',  rateId: 'ig-1-rate'  },
+      { product: 'India Gate', weight: '5g',   qtyId: 'ig-5-qty',  rateId: 'ig-5-rate'  },
+
+      { product: 'Gold Medal', weight: '0.5g', qtyId: 'gm-05-qty', rateId: 'gm-05-rate' },
+      { product: 'Gold Medal', weight: '1g',   qtyId: 'gm-1-qty',  rateId: 'gm-1-rate'  },
+      { product: 'Gold Medal', weight: '5g',   qtyId: 'gm-5-qty',  rateId: 'gm-5-rate'  },
+
+      { product: 'Minar',      weight: '0.5g', qtyId: 'mn-05-qty', rateId: 'mn-05-rate' },
+      { product: 'Minar',      weight: '1g',   qtyId: 'mn-1-qty',  rateId: 'mn-1-rate'  },
+      { product: 'Minar',      weight: '5g',   qtyId: 'mn-5-qty',  rateId: 'mn-5-rate'  },
+
+      { product: 'Walnuts',    weight: 'N/A',  qtyId: 'walnut-qty',    rateId: 'walnut-rate'    },
+      { product: 'Gold Leaf',  weight: 'N/A',  qtyId: 'goldleaf-qty',  rateId: 'goldleaf-rate'  },
+      { product: 'Silver Leaf',weight: 'N/A',  qtyId: 'silverleaf-qty',rateId: 'silverleaf-rate'}
+    ];
+
+    products.forEach(item => {
+      const qtyValue = document.getElementById(item.qtyId).value.trim();
+      const rateValue = document.getElementById(item.rateId).value.trim();
+
+      if (qtyValue && parseFloat(qtyValue) > 0) {
+        items.push({
+          product: item.product,
+          weight: item.weight,
+          quantity: safeNumber(qtyValue),
+          rate: safeNumber(rateValue)
+        });
+      }
+    });
+
+    return items;
+  }
+
   document.getElementById('orderForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
     let valid = true;
-    const show = (id) => { document.getElementById(id).style.display = 'block'; valid = false; };
-    const hide = (id) => { document.getElementById(id).style.display = 'none'; };
+
+    const show = (id) => {
+      document.getElementById(id).style.display = 'block';
+      valid = false;
+    };
+
+    const hide = (id) => {
+      document.getElementById(id).style.display = 'none';
+    };
 
     const name = document.getElementById('name').value.trim();
     name ? hide('err-name') : show('err-name');
 
-    // Build order lines
-    const orderLines = [];
-    [...saffronVariants, ...otherVariants].forEach(v => {
-      const qty  = document.getElementById(v.id + '-qty').value.trim();
-      const rate = document.getElementById(v.id + '-rate').value.trim();
-      if (qty && parseInt(qty) > 0) {
-        orderLines.push(rate ? `${v.label} x${qty} @ ₹${rate}` : `${v.label} x${qty}`);
-      }
-    });
-    orderLines.length > 0 ? hide('err-products') : show('err-products');
+    const items = collectItems();
+    items.length > 0 ? hide('err-products') : show('err-products');
 
     const urgencyEl = document.querySelector('.urgency-opt.selected');
     urgencyEl ? hide('err-urgency') : show('err-urgency');
 
     if (!valid) return;
 
-    const phone     = document.getElementById('phone').value.trim();
-    const address   = document.getElementById('address').value.trim();
-    const notes     = document.getElementById('notes').value.trim();
-    const items     = orderLines.join(' | ');
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const notes = document.getElementById('notes').value.trim();
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    let urgency     = urgencyEl.dataset.val;
+    const orderId = 'ORD-' + Date.now();
+
+    let urgency = urgencyEl.dataset.val;
     if (urgency === 'Specific Date') {
       const d = document.getElementById('deliveryDate').value;
       urgency = d ? 'Specific Date: ' + d : 'Specific Date';
     }
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3vUq8geMCugy1S4TiQfRSt75xpMoiQpmQXX9TB3zcW-7FrH57hIq9PjR8FBMonNNQ6w/exec';
-    try {
-      const params = new URLSearchParams({
-        name:      name,
-        phone:     phone ? '+91 ' + phone : '',
-        address:   address,
-        products:  items,
-        urgency:   urgency,
-        notes:     notes,
-        timestamp: timestamp
-      });
-      await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-    } catch (_) {}
+    const orderData = {
+      timestamp: timestamp,
+      orderId: orderId,
+      name: name,
+      phone: phone ? '+91 ' + phone : '',
+      address: address,
+      urgency: urgency,
+      notes: notes,
+      items: items
+    };
 
-    document.getElementById('successOverlay').classList.add('show');
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        document.getElementById('successSub').textContent = 'Thank you! Your order has been received successfully. Order ID: ' + (result.orderId || orderId);
+        document.getElementById('successOverlay').classList.add('show');
+      } else {
+        alert('Order not saved: ' + result.message);
+      }
+    } catch (err) {
+      console.error('Submit error:', err);
+      alert('Failed to submit order. Please try again.');
+    }
   });
 
   function resetForm() {
@@ -415,6 +444,10 @@
     document.querySelectorAll('.brand-panel').forEach((p, i) => p.classList.toggle('active', i === 0));
     document.getElementById('dateWrap').classList.remove('show');
     document.getElementById('successOverlay').classList.remove('show');
+    document.getElementById('err-name').style.display = 'none';
+    document.getElementById('err-products').style.display = 'none';
+    document.getElementById('err-urgency').style.display = 'none';
+    document.getElementById('successSub').textContent = 'Thank you! Your order has been received. Our team at BMK Marketing will confirm it shortly.';
   }
 </script>
 </body>
